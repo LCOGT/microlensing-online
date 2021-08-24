@@ -1,0 +1,33 @@
+# Helm chart values for Production Deployment
+
+# Production mode: disable Django Debug Mode (it can leak passwords/keys)
+# Rather than toggling this value, reproduce your problem in the Development
+# environment instead.
+djangoDebug: false
+
+# Django Secret Key
+# This is overridden in eks-production1/prod/mop-values.yaml
+djangoSecretKey: "overridden"
+
+# MOP Container CPU/Memory Resource Requests/Limits
+resources:
+  requests:
+    cpu: 10m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1024Mi
+
+# HTTP router configuration
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx-ingress-public
+    # Turn these on to disable all request buffering. In that case, you are on
+    # your own in case of a DoS (Denial of Service) attack, or broken clients, or ..
+    #nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    #nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  hosts:
+    - host: microlensing-online.lco.global
+      paths:
+        - "/"

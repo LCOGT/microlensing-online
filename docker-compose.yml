@@ -1,0 +1,10 @@
+mlsource:
+    image: rstreet/microlensing-online
+    environment:
+      - SECRET_KEY=c5ol^j+2bw=b5ha@mweuwfn#0q&3$u-hp#58o35zhtcdu%8&i)
+    ports:
+      - 8080:80
+    volumes:
+      - ./database/db.sqlite3:/var/www/microlensingonline/sqlite.db
+      - ~/Desktop/Work/LCO_Internship/microlensing-online:/var/www/software
+    restart: always
