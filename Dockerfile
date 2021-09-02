@@ -14,6 +14,8 @@ COPY docker/ /
 
 # install python requirements
 COPY pip-requirements.txt /var/www/microlensingonline/
+ADD /database/sqlite.db /var/www/microlensingonline/sqlite.db
+# ADD /database/microlensing-online /var/www/software
 RUN pip install --upgrade "pip < 21.0"
 RUN pip install -r /var/www/microlensingonline/pip-requirements.txt
 RUN rm -rf ~/.cache ~/.pip
